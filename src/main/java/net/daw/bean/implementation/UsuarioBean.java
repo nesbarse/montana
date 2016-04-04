@@ -37,6 +37,243 @@ import net.daw.helper.statics.EncodingUtilHelper;
 
 public class UsuarioBean implements GenericBean {
 
+@Expose
+    private Integer id;
+    @Expose
+    private String nombre;
+    @Expose
+    private String apellidos;
+    @Expose
+    private String dni;
+    @Expose
+    private Integer telefono;
+    @Expose
+    private String login;
+    @Expose
+    private String password;
+    @Expose
+    private String email;
+    @Expose
+    private String provincia;
+    @Expose(serialize = false)
+    private Integer id_tipousuario = 0;
+    @Expose(deserialize = false)
+    private TipousuarioBean obj_tipousuario = null;
+
+    public UsuarioBean(){
+        this.id = 0;
+    }
+    
+    public UsuarioBean(Integer id){
+        this.id = id;
+    }
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public Integer getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Integer telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public Integer getId_tipousuario() {
+        return id_tipousuario;
+    }
+
+    public void setId_tipousuario(Integer id_tipousuario) {
+        this.id_tipousuario = id_tipousuario;
+    }
+
+    public TipousuarioBean getObj_tipousuario() {
+        return obj_tipousuario;
+    }
+
+    public void setObj_tipousuario(TipousuarioBean obj_tipousuario) {
+        this.obj_tipousuario = obj_tipousuario;
+    }
+    
+    public String toJson (Boolean expand){
+        String strJson = "{";
+        strJson += "id:" + id + ",";
+        strJson += "nombre:" + EncodingUtilHelper.quotate(nombre) + ",";
+        strJson += "apellidos:" + EncodingUtilHelper.quotate(apellidos) + ",";
+        strJson += "dni:" + EncodingUtilHelper.quotate(dni) + ",";
+        strJson += "telefono:" + telefono + ",";
+        strJson += "login:" + EncodingUtilHelper.quotate(login) + ",";
+        strJson += "password:" + EncodingUtilHelper.quotate(password) + ",";
+        strJson += "email:" + EncodingUtilHelper.quotate(email) + ",";
+        strJson += "provincia:" + EncodingUtilHelper.quotate(provincia) + ",";
+        
+        if(expand) {
+            strJson += "obj_tipousuario:" + obj_tipousuario.toJson(false) + ",";
+        } else {
+            strJson += "id_tipousuario:" + id_tipousuario + ",";
+        }
+        
+        strJson += "}";        
+        return strJson;
+    }
+    
+    @Override
+    public String getColumns() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String strColumns = "";
+
+        strColumns += "id";
+        strColumns += "nombre";
+        strColumns += "apellidos";
+        strColumns += "dni";
+        strColumns += "telefono";
+        strColumns += "login";
+        strColumns += "password";
+        strColumns += "email";
+        strColumns += "provincia";
+        strColumns += "id_tipousuario";
+        
+        return strColumns;        
+    }
+
+    @Override
+    public String getValues() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String strColumns = "";
+        
+        strColumns += id + ",";
+        strColumns += EncodingUtilHelper.quotate(nombre) + ",";
+        strColumns += EncodingUtilHelper.quotate(apellidos) + ",";
+        strColumns += EncodingUtilHelper.quotate(dni) + ",";
+        strColumns += telefono + ",";
+        strColumns += EncodingUtilHelper.quotate(login) + ",";
+        strColumns += EncodingUtilHelper.quotate(password) + ",";
+        strColumns += EncodingUtilHelper.quotate(email) + ",";
+        strColumns += EncodingUtilHelper.quotate(provincia) + ",";
+        strColumns += id_tipousuario;
+        
+        return strColumns;
+    }
+
+    @Override
+    public String toPairs() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String strPairs = "";
+        
+        strPairs += "id=" + id + ",";
+        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre) + ",";
+        strPairs += "apellidos=" + EncodingUtilHelper.quotate(apellidos) + ",";
+        strPairs += "dni=" + EncodingUtilHelper.quotate(dni) + ",";
+        strPairs += "telefono=" + telefono + ",";
+        strPairs += "login=" + EncodingUtilHelper.quotate(login) + ",";
+        strPairs += "password=" + EncodingUtilHelper.quotate(password) + ",";
+        strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
+        strPairs += "provincia=" + EncodingUtilHelper.quotate(provincia) + ",";
+        strPairs += "nombre=" + id_tipousuario;
+        
+        return strPairs;
+    }
+
+    @Override
+    public UsuarioBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.setId(oResultSet.getInt("id"));
+        this.setNombre(oResultSet.getString("nombre"));
+        this.setApellidos(oResultSet.getString("apellidos"));
+        this.setDni(oResultSet.getString("dni"));
+        this.setTelefono(oResultSet.getInt("telefono"));
+        this.setLogin(oResultSet.getString("login"));
+        this.setPassword(oResultSet.getString("password"));
+        this.setEmail(oResultSet.getString("email"));
+        this.setProvincia(oResultSet.getString("provincia"));
+        if (expand > 0){
+            TipousuarioBean oTipousuarioBean = new TipousuarioBean();
+            TipousuarioDao oTipousuarioDao = new TipousuarioDao(pooledConnection);
+            oTipousuarioBean.setId(oResultSet.getInt("id_tipousuario"));
+            oTipousuarioBean = oTipousuarioDao.get(oTipousuarioBean, expand - 1);
+            this.setObj_tipousuario(oTipousuarioBean);
+        } else {
+            this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
+        }
+        
+        return this;
+    }    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+/*
     @Expose
     private Integer id;
     @Expose
@@ -284,5 +521,5 @@ public class UsuarioBean implements GenericBean {
         return this;
 
     }
-
+*/
 }

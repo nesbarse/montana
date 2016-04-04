@@ -90,7 +90,7 @@ public class UsuarioDao implements ViewDaoInterface<UsuarioBean>, TableDaoInterf
             if (oResultSet != null) {
                 while (oResultSet.next()) {
                     UsuarioBean oUsuarioBean = new UsuarioBean();
-                    arrUsuario.add(oUsuarioBean.fill(oResultSet, oConnection, expand));
+                    arrUsuario.add((UsuarioBean) oUsuarioBean.fill(oResultSet, oConnection, expand));
                 }
             }
         } catch (Exception ex) {
@@ -108,7 +108,7 @@ public class UsuarioDao implements ViewDaoInterface<UsuarioBean>, TableDaoInterf
             if (oResultSet != null) {
                 while (oResultSet.next()) {
                     UsuarioBean oUsuarioBean = new UsuarioBean();
-                    arrUsuario.add(oUsuarioBean.fill(oResultSet, oConnection, expand));
+                    arrUsuario.add((UsuarioBean) oUsuarioBean.fill(oResultSet, oConnection, expand));
                 }
             }
         } catch (Exception ex) {
@@ -124,7 +124,7 @@ public class UsuarioDao implements ViewDaoInterface<UsuarioBean>, TableDaoInterf
                 ResultSet oResultSet = oMysql.getAllSql(strSQL + " And id= " + oUsuarioBean.getId() + " ");
                 if (oResultSet != null) {
                     while (oResultSet.next()) {
-                        oUsuarioBean = oUsuarioBean.fill(oResultSet, oConnection, expand);
+                        oUsuarioBean = (UsuarioBean) oUsuarioBean.fill(oResultSet, oConnection, expand);
                     }
                 }
             } catch (Exception ex) {

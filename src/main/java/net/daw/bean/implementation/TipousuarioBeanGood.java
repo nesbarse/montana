@@ -4,7 +4,7 @@
  * openAUSIAS: The stunning micro-library that helps you to develop easily 
  *             AJAX web applications by using Java and jQuery
  * openAUSIAS is distributed under the MIT License (MIT)
- * Sources at https://github.com/rafaelaznar/openAUSIAS
+ * Sources at https://github.com/rafaelaznar/
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ * 
  */
 package net.daw.bean.implementation;
 
@@ -32,8 +33,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.daw.bean.publicinterface.GenericBean;
 
-public class TipousuarioBean implements GenericBean{
-
+/**
+ *
+ * @author nestor
+ */
+public class TipousuarioBeanGood implements GenericBean{
     
     @Expose
     private Integer id;
@@ -42,10 +46,10 @@ public class TipousuarioBean implements GenericBean{
     @Expose
     private String descripcion;
     
-    public TipousuarioBean(){
+    public TipousuarioBeanGood(){
         this.id = 0;
     }
-    public TipousuarioBean(Integer id){
+    public TipousuarioBeanGood(Integer id){
         this.id = id;
     }
 
@@ -123,7 +127,7 @@ public class TipousuarioBean implements GenericBean{
     }
 
     @Override
-    public TipousuarioBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+    public TipousuarioBeanGood fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         this.setId(oResultSet.getInt("id"));
@@ -132,82 +136,4 @@ public class TipousuarioBean implements GenericBean{
     
         return this;
     }
-    
-    
-    
-    
-    
-    
-    /*
-    @Expose
-    private Integer id;
-    @Expose
-    private String descripcion = "";
-
-    public TipousuarioBean() {
-        this.id = 0;
-    }
-
-    public TipousuarioBean(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String toJson(Boolean expand) {
-        String strJson = "{";
-        strJson += "id:" + id + ",";
-        strJson += "descripcion:" + descripcion + ",";
-        strJson += "}";
-        return strJson;
-    }
-
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "descripcion";
-
-        return strColumns;
-    }
-
-    @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";
-        strColumns += descripcion;
-
-        return strColumns;
-    }
-
-    @Override
-    public String toPairs() {
-        String strPairs = "";
-        strPairs += "id=" + id + ",";
-        strPairs += "descripcion=" + descripcion;
-
-        return strPairs;
-    }
-
-    @Override
-    public TipousuarioBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        return this;
-
-    }
-*/
 }

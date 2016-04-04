@@ -415,7 +415,7 @@ public class UsuarioService implements TableServiceInterface, ViewServiceInterfa
         }
     }
 
-    public int sessionuserlevel() {
+    /*public int sessionuserlevel() {
         String strAnswer = null;
         UsuarioBean oUserBean = (UsuarioBean) oRequest.getSession().getAttribute("userBean");
         if (oUserBean == null) {
@@ -423,6 +423,6 @@ public class UsuarioService implements TableServiceInterface, ViewServiceInterfa
         } else {
             return oUserBean.getId_estado();
         }
-    }
+    }*/
 
 }
