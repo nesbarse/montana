@@ -25,31 +25,39 @@
  * THE SOFTWARE.
  * 
  */
+
 package net.daw.bean.implementation;
 
 import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import net.daw.bean.publicinterface.GenericBean;
+import net.daw.dao.implementation.PostDao;
 
 /**
  *
- * @author nestor
+ * @author a022595832b
  */
-public class TipousuarioBeanGood implements GenericBean{
+public class ComentarioBean implements GenericBean{
     
     @Expose
     private Integer id;
     @Expose
-    private String nombre;
+    private String mensaje;
     @Expose
-    private String descripcion;
+    private Date fecha;
+    @Expose(serialize = false)
+    private Integer id_post = 0;
+    @Expose(deserialize = false)
+    private PostBean obj_post = null;
     
-    public TipousuarioBeanGood(){
+    public ComentarioBean(){
         this.id = 0;
     }
-    public TipousuarioBeanGood(Integer id){
+    
+    public ComentarioBean(Integer id){
         this.id = id;
     }
 
@@ -61,30 +69,52 @@ public class TipousuarioBeanGood implements GenericBean{
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Integer getId_post() {
+        return id_post;
+    }
+
+    public void setId_post(Integer id_post) {
+        this.id_post = id_post;
+    }
+
+    public PostBean getObj_post() {
+        return obj_post;
+    }
+
+    public void setObj_post(PostBean obj_post) {
+        this.obj_post = obj_post;
     }
     
     public String toJson(Boolean expand){
         String strJson = "{";
         
         strJson += "id:" + id + ",";
-        strJson += "nombre:" + nombre + ",";
-        strJson += "descripcion:" + descripcion + ",";
-        strJson += "}";
+        strJson += "mensaje:" + mensaje + ",";
+        strJson += "fecha:" + fecha + ",";
         
+        if(expand){
+            strJson += "obj_post:" + obj_post.toJson(false) + ",";
+        } else{
+            strJson += "id_post:" + id_post + ",";
+        }
+        
+        strJson += "}";
         return strJson;
     }
 
@@ -92,48 +122,62 @@ public class TipousuarioBeanGood implements GenericBean{
     public String getColumns() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
-        
+    
         strColumns += "id,";
-        strColumns += "nombre,";
-        strColumns += "descripcion";
-        
+        strColumns += "mensaje,";
+        strColumns += "fecha,";
+        strColumns += "id_post";
+    
         return strColumns;
-        
     }
 
     @Override
     public String getValues() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
         
         strColumns += id + ",";
-        strColumns += nombre + ",";
-        strColumns += descripcion;
-        
-        return strColumns;
+        strColumns += mensaje + ",";
+        strColumns += fecha + ",";
+        strColumns += id_post;
     
+        return strColumns;
     }
 
     @Override
     public String toPairs() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strPairs = "";
         
         strPairs += "id=" + id + ",";
-        strPairs += "nombre=" + nombre + ",";
-        strPairs += "descripcion=" + descripcion;
-      
+        strPairs += "mensaje=" + mensaje + ",";
+        strPairs += "fecha=" + fecha + ",";
+        strPairs += "id_post=" + id_post;
+    
         return strPairs;
     }
 
     @Override
-    public TipousuarioBeanGood fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+    public ComentarioBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         this.setId(oResultSet.getInt("id"));
-        this.setNombre(oResultSet.getString("nombre"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-    
+        this.setMensaje(oResultSet.getString("mensaje"));
+        this.setFecha(oResultSet.getDate("fecha"));
+        
+        if(expand > 0){
+            PostBean oPostBean = new PostBean();
+            PostDao oPostDao = new PostDao(pooledConnection);
+            oPostBean.setId(oResultSet.getInt("id_post"));
+            oPostBean = oPostDao.get(oPostBean, expand - 1);
+            this.setObj_post(oPostBean);
+        } else {
+            this.setId_post(oResultSet.getInt("id_post"));
+        }
+        
         return this;
     }
+    
+    
+    
 }

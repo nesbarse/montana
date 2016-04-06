@@ -234,7 +234,7 @@ public class UsuarioBean implements GenericBean {
         strPairs += "password=" + EncodingUtilHelper.quotate(password) + ",";
         strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
         strPairs += "provincia=" + EncodingUtilHelper.quotate(provincia) + ",";
-        strPairs += "nombre=" + id_tipousuario;
+        strPairs += "id_tipousuario=" + id_tipousuario;
         
         return strPairs;
     }

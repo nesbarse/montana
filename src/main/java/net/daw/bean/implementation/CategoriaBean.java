@@ -27,6 +27,7 @@
  */
 package net.daw.bean.implementation;
 
+import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,24 +39,100 @@ import net.daw.bean.publicinterface.GenericBean;
  */
 public class CategoriaBean implements GenericBean{
 
-    @Override
-    public String getColumns() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Expose
+    private Integer id;
+    @Expose
+    private String nombre;
+    @Expose
+    private String descripcion;
+    
+    public CategoriaBean(){
+        this.id = 0;
+    }
+    
+    public CategoriaBean(Integer id){
+        this.id = id;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    public String toJson(Boolean expand){
+        String strJson = "{";
+        
+        strJson += "id:" + id + ",";
+        strJson += "nombre:" + nombre + ",";
+        strJson += "descripcion" + descripcion + ",";
+        strJson += "}";
+        
+        return strJson;
+    }
+    
+    @Override
+    public String getColumns() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String strColumns = "";
+        
+        strColumns += "id,";
+        strColumns += "nombre,";
+        strColumns += "descripcion";
+        
+        return strColumns;
+    }
+    
     @Override
     public String getValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String strColumns = "";
+        
+        strColumns += id + ",";
+        strColumns += nombre + ",";
+        strColumns += descripcion;
+        
+        return strColumns;
     }
 
     @Override
     public String toPairs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String strPairs = "";
+    
+        strPairs += "id=" + id +",";
+        strPairs += "nombre=" + nombre + ",";
+        strPairs += "descripcion" + descripcion;
+    
+        return strPairs;
     }
 
     @Override
-    public GenericBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CategoriaBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setId(oResultSet.getInt("id"));
+        this.setNombre(oResultSet.getString("nombre"));
+        this.setDescripcion(oResultSet.getString("descripcion"));
+    
+        return this;
     }
     
     
